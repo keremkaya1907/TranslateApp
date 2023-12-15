@@ -42,10 +42,10 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MAIN_TAG";
 
-    private String sourceLanguageCode = "en";
-    private String sourceLanguageTitle = "İngilizce";
-    private String destinationLanguageCode = "tr";
-    private String destinationLanguageTitle = "Turkce";
+    private String sourceLanguageCode = "tr";
+    private String sourceLanguageTitle = "Türkçe";
+    private String destinationLanguageCode = "en";
+    private String destinationLanguageTitle = "İngilizce";
 
 
     @Override
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 sourceLanguageTitle = languageArrayList.get(position).languageTitle;
 
                 sourceLanguageChooseBtn.setText(sourceLanguageTitle);
-                sourceLanguageEt.setHint("Girin " + sourceLanguageTitle);
+                sourceLanguageEt.setHint("metin girin: " + sourceLanguageTitle);
 
                 Log.d(TAG, "onMenuItemClick: sourceLanguageCode " + sourceLanguageCode);
                 Log.d(TAG, "onMenuItemClick: sourceLanguageTitle " + sourceLanguageTitle);
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
                 sourceLanguageTitle = languageArrayList.get(position).languageTitle;
 
                 sourceLanguageChooseBtn.setText(sourceLanguageTitle);
-                sourceLanguageEt.setHint("Enter" + sourceLanguageTitle);
+                sourceLanguageEt.setHint("metin girin: " + sourceLanguageTitle);
 
                 Log.d(TAG, "onMenuItemClick: sourceLanguageCode " + sourceLanguageCode);
                 Log.d(TAG, "onMenuItemClick: sourceLanguageTitle " + sourceLanguageTitle);
