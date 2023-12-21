@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:hint="metin girin: Türkçe"
             android:minHeight="100dp"
+            android:textColorHint="#807E7E"
             android:gravity="start"
             android:textSize="18sp"/>
 
@@ -32,6 +33,10 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:text=""
+    android:textColorHint="#807E7E"
+
+    android:hint="girilen metin burada gözükecek"
+
     android:textSize="18sp"/>
 
         </LinearLayout>
@@ -51,10 +56,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Türkçe"
+
         app:cornerRadius="10dp"
         android:layout_weight="1"/>
 
     <ImageButton
+
         android:layout_width="65dp"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -78,6 +85,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/translateBtn"
+
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_height="wrap_content"

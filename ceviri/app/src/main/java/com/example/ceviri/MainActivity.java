@@ -1,5 +1,6 @@
 package com.example.ceviri;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +33,8 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     private EditText sourceLanguageEt;
+
+
     private TextView destinationLanguageTv;
     private MaterialButton sourceLanguageChooseBtn;
     private MaterialButton destinationLanguageChooseBtn;
@@ -58,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         sourceLanguageChooseBtn = findViewById(R.id.sourceLanguageChooseBtn);
         destinationLanguageChooseBtn = findViewById(R.id.destinationLanguageChooseBtn);
         translateBtn = findViewById(R.id.translateBtn);
+        sourceLanguageChooseBtn.setBackgroundColor(getResources().getColor(R.color.butonRengi));
+
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Bekleyin");
@@ -133,23 +139,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void startTranslations() {
 
-        progressDialog.setMessage("Dil Modeli Uygulanıyor");
+        progressDialog.setMessage("Dil Modeli Uygulanıyor...(Eğer Mobil Veride İseniz İşlem Uzun Sürebilir)");
         progressDialog.show();
-
         translatorOptions = new TranslatorOptions.Builder().setSourceLanguage(sourceLanguageCode).setTargetLanguage(destinationLanguageCode).build();
-
         translator = Translation.getClient(translatorOptions);
-
         DownloadConditions downloadConditions = new DownloadConditions.Builder().requireWifi().build();
         translator.downloadModelIfNeeded(downloadConditions).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Log.d(TAG, "onSuccess: model hazır, çeviri başlıyor...");
+                Log.d(TAG, "onSuccess: Dil modeli hazır, çeviri başlıyor...");
                 progressDialog.setMessage("Çeviriliyor");
                 translator.translate(sourceLanguageText).addOnSuccessListener(new OnSuccessListener<String>() {
                     @Override
                     public void onSuccess(String translatedText) {
-                        Log.d(TAG, "onSuccess: translatedText: "+translatedText);
+                        Log.d(TAG, "onSuccess: Çevirilen Metin: "+translatedText);
 
                         progressDialog.dismiss();
 
@@ -163,10 +166,8 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d(TAG, "onFailure: ", e);
                                 Toast.makeText(MainActivity.this, "Çeviri esnasında hata oluştu"+e.getMessage(), Toast.LENGTH_SHORT).show();
                                 progressDialog.dismiss();
-
                             }
                         });
-
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
@@ -174,11 +175,9 @@ public class MainActivity extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                      progressDialog.dismiss();
                         Log.d(TAG, "onFailure: ", e);
-                        Toast.makeText(MainActivity.this, "Model Hazırlanamadı"+e.getMessage(), Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(MainActivity.this, "Model Yüklenemedi.."+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
 
     private void setSourceLanguageChooseBtn()
@@ -201,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                 sourceLanguageTitle = languageArrayList.get(position).languageTitle;
 
                 sourceLanguageChooseBtn.setText(sourceLanguageTitle);
-                sourceLanguageEt.setHint("metin girin: " + sourceLanguageTitle);
+                sourceLanguageEt.setHint("Metin girin: " + sourceLanguageTitle);
 
                 Log.d(TAG, "onMenuItemClick: sourceLanguageCode " + sourceLanguageCode);
                 Log.d(TAG, "onMenuItemClick: sourceLanguageTitle " + sourceLanguageTitle);
